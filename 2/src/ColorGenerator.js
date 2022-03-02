@@ -1,28 +1,31 @@
+import React, { Component } from 'react';
+import Color from './Color';
 
-import React ,{Component} from react
-import Color from "./color"
+class ColorGenerator extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      colorNew: [],
+      colors: ['#d47e7e', '#285bec', '#2a4032', '#808080', '#FF0000', '#0AFEEB']
+    };
 
-export default class ColorGenerator extends Component{
-    constructor(props){
-        super(props)
-        this.state={
-            new_color:''
-            color:""
-        }
-        this.addColor=this.addColor.bind(this)
-    }
-    addColor(){
-        this.state.new_color=randomColor();
+  }
+  handleClick = () => {
+    let colorArr = this.state.colors
+    let colorRandom = colorArr[Math.floor(Math.random() * colorArr.length)];
+    this.setState({ 
+      colorNew: [colorRandom, ...this.state.colorNew] 
+    })
+  }
 
-    }
-    render(){
-        return(
-            <React.Fragment>
-<div className="colorGenerator">
-<button onClick={this.addColor}> AddColor</button>
-{this.state.color,map(colors=><Color colorItems={colors}/>)}
-</div>
-            </React.Fragment>
-        )
-    }
-}
+  render() {
+
+    return (
+      <div>
+        <button onClick={this.handleClick} className="AddColorBtn">Add color</button>
+        {this.state.colorNew.map((item, i) => <Color key={i} color={item}  />)}
+      </div>
+    );
+
+  }
+} export default ColorGenerator
